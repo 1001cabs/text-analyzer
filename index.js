@@ -9,7 +9,7 @@ const peliasConfig = require( 'pelias-config' ).generate(require('./schema'));
 if ('libpostal' === peliasConfig.api.textAnalyzer) {
   console.log('loading libpostal data, this may take a few seconds...');
   const postal = require('node-postal');
-  module.exports = require('./src/libpostalParser').create(postal.parser.parse_address);
+  module.exports = require('./src/libpostalParser').create(postal.expand.expand_address,postal.parser.parse_address);
 }
 else if ('addressit' === peliasConfig.api.textAnalyzer) {
   module.exports = require('./src/addressItParser');

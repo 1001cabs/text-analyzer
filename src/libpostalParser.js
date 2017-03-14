@@ -61,7 +61,7 @@ var field_mapping = {
 //
 // The Pelias query module is not concerned with unit.
 //
-module.exports.create = function create(parse_address) {
+module.exports.create = function create(expand_address,parse_address) {
   if (typeof parse_address !== 'function') {
     throw new Error('parse_address parameter must be of type function');
   }
@@ -69,7 +69,7 @@ module.exports.create = function create(parse_address) {
   return {
     parse: function parse(query) {
       // call the parsing function (libpostal)
-      var parsed = parse_address(_.deburr(query));
+      var parsed = parse_address(expand_address(_.deburr(query))[0]);
 
       logger.debug('libpostal raw: ' + JSON.stringify(parsed, null, 2));
 
